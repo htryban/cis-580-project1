@@ -37,8 +37,8 @@ namespace MonoGameWindowsStarter
             graphics.PreferredBackBufferHeight = 1000;
             graphics.ApplyChanges();
 
-            shipRect.X = 465;
-            shipRect.Y = 920;
+            shipRect.X = 550;
+            shipRect.Y = 900;
             shipRect.Width = 70;
             shipRect.Height = 80;
 
@@ -87,14 +87,23 @@ namespace MonoGameWindowsStarter
                 Exit();
             if (newKeyboardState.IsKeyDown(Keys.Left))
             {
-                shipRect.X -= 5;
+                shipRect.X -= 10;
             }
 
             if (newKeyboardState.IsKeyDown(Keys.Right))
             {
-                shipRect.X += 5;
+                shipRect.X += 10;
             }
 
+            if(shipRect.X < 0)
+            {
+                shipRect.X = 0;
+            }
+
+            if(shipRect.X > GraphicsDevice.Viewport.Width - shipRect.Width)
+            {
+                shipRect.X = GraphicsDevice.Viewport.Width - shipRect.Width;
+            }
             base.Update(gameTime);
         }
 
