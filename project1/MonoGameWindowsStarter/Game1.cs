@@ -13,6 +13,7 @@ namespace MonoGameWindowsStarter
         int progression = 0;
         int score = 0;
 
+        private SpriteFont _font;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Random rand = new Random();
@@ -75,6 +76,8 @@ namespace MonoGameWindowsStarter
             meteorRect5.Y = rand.Next(-200, -1);
             meteorRect5.Width = 50;
             meteorRect5.Height = 50;
+
+            _font = Content.Load<SpriteFont>("testfont"); 
 
             base.Initialize();
         }
@@ -189,6 +192,7 @@ namespace MonoGameWindowsStarter
             if (shipRect.Intersects(meteorRect1) || shipRect.Intersects(meteorRect2) || shipRect.Intersects(meteorRect3) || shipRect.Intersects(meteorRect4) || shipRect.Intersects(meteorRect5))
             {
                 score += 1;
+                
             } 
 
             base.Update(gameTime);
@@ -210,6 +214,7 @@ namespace MonoGameWindowsStarter
             spriteBatch.Draw(rock, meteorRect3, Color.White);
             spriteBatch.Draw(rock, meteorRect4, Color.White);
             spriteBatch.Draw(rock, meteorRect5, Color.White);
+            spriteBatch.DrawString(_font, "Dodge the meteors! \nuse the arrows to move and press space to warp.", new Vector2(0,0), Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
         }
