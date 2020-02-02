@@ -41,3 +41,25 @@ C:\Users\htryb\Source\Repos\cis-580-project1\project1\MonoGameWindowsStarter\obj
 C:\Users\htryb\Source\Repos\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.csproj.CopyComplete
 C:\Users\htryb\Source\Repos\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.exe
 C:\Users\htryb\Source\Repos\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.pdb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.csprojAssemblyReference.cache
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.exe
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.pdb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\MonoGameWindowsStarter.exe
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\MonoGameWindowsStarter.pdb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\MonoGame.Framework.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.MediaFoundation.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.XAudio2.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.DXGI.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.Direct3D11.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.Direct2D1.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.XInput.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\MonoGame.Framework.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.MediaFoundation.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.XAudio2.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.DXGI.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.csproj.CopyComplete

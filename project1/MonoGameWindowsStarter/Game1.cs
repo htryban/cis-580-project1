@@ -10,12 +10,21 @@ namespace MonoGameWindowsStarter
     /// </summary>
     public class Game1 : Game
     {
+        int progression = 0;
+        int score = 0;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Random rand = new Random();
         Rectangle shipRect;
+        Rectangle meteorRect1;
+        Rectangle meteorRect2;
+        Rectangle meteorRect3;
+        Rectangle meteorRect4;
+        Rectangle meteorRect5;
         Texture2D ship;
         Texture2D rock;
-        KeyboardState oldKeyboardState;
+        //KeyboardState oldKeyboardState;
         KeyboardState newKeyboardState;
 
         public Game1()
@@ -42,6 +51,30 @@ namespace MonoGameWindowsStarter
             shipRect.Width = 70;
             shipRect.Height = 80;
 
+            meteorRect1.X = rand.Next(900, 1150);
+            meteorRect1.Y = rand.Next(-200, -1);
+            meteorRect1.Width = 50;
+            meteorRect1.Height = 50;
+
+            meteorRect2.X = rand.Next(650, 900);
+            meteorRect2.Y = -100;
+            meteorRect2.Width = 50;
+            meteorRect2.Height = 50;
+
+            meteorRect3.X = rand.Next(450, 650);
+            meteorRect3.Y = rand.Next(-200, -1);
+            meteorRect3.Width = 50;
+            meteorRect3.Height = 50;
+
+            meteorRect4.X = rand.Next(250, 450);
+            meteorRect4.Y = -300;
+            meteorRect4.Width = 50;
+            meteorRect4.Height = 50;
+
+            meteorRect5.X = rand.Next(250);
+            meteorRect5.Y = rand.Next(-200, -1);
+            meteorRect5.Width = 50;
+            meteorRect5.Height = 50;
 
             base.Initialize();
         }
@@ -57,7 +90,7 @@ namespace MonoGameWindowsStarter
 
             // TODO: use this.Content to load your game content here
             ship = Content.Load<Texture2D>("si");
-            //rock = Content.Load<Texture2D>("ball");
+            rock = Content.Load<Texture2D>("meteor");
                 
         }
 
@@ -95,6 +128,16 @@ namespace MonoGameWindowsStarter
                 shipRect.X += 10;
             }
 
+            if(newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Right))
+            {
+                shipRect.X += 50;
+            }
+
+            if(newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Left))
+            {
+                shipRect.X -= 50;
+            }
+
             if(shipRect.X < 0)
             {
                 shipRect.X = 0;
@@ -104,6 +147,50 @@ namespace MonoGameWindowsStarter
             {
                 shipRect.X = GraphicsDevice.Viewport.Width - shipRect.Width;
             }
+
+            if (progression > 15) progression = 15;
+            meteorRect1.Y += (int)(10 + progression*.9);
+            meteorRect2.Y += (int)(10 + progression*1.1);
+            meteorRect3.Y += (int)(10 + progression);
+            meteorRect4.Y += (int)(10 + progression*.5);
+            meteorRect5.Y += (int)(10 + progression*.8);
+
+            if(meteorRect1.Y > 1200)
+            {
+                meteorRect1.Y = rand.Next(-200, -1);    
+                meteorRect1.X = rand.Next(1151);
+                progression += 1;
+            }
+            if(meteorRect2.Y > 1200)
+            {
+                meteorRect2.Y = rand.Next(-200, -1);    
+                meteorRect2.X = rand.Next(1151);
+                //progression += 1;
+            }
+            if(meteorRect3.Y > 1200)
+            {
+                meteorRect3.Y = rand.Next(-200, -1);
+                meteorRect3.X = rand.Next(1151);
+                //progression += 1;
+            }
+            if(meteorRect4.Y > 1200)
+            {
+                meteorRect4.Y = rand.Next(-200, -1);
+                meteorRect4.X = rand.Next(1151);
+                //progression += 1;
+            }
+            if(meteorRect5.Y > 1200)
+            {
+                meteorRect5.Y = rand.Next(-200, -1);
+                meteorRect5.X = rand.Next(1151);
+                //progression += 1;
+            }
+
+            if (shipRect.Intersects(meteorRect1) || shipRect.Intersects(meteorRect2) || shipRect.Intersects(meteorRect3) || shipRect.Intersects(meteorRect4) || shipRect.Intersects(meteorRect5))
+            {
+                score += 1;
+            } 
+
             base.Update(gameTime);
         }
 
@@ -118,7 +205,11 @@ namespace MonoGameWindowsStarter
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             spriteBatch.Draw(ship, shipRect, Color.White);
-
+            spriteBatch.Draw(rock, meteorRect1, Color.White);
+            spriteBatch.Draw(rock, meteorRect2, Color.White);
+            spriteBatch.Draw(rock, meteorRect3, Color.White);
+            spriteBatch.Draw(rock, meteorRect4, Color.White);
+            spriteBatch.Draw(rock, meteorRect5, Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
         }
