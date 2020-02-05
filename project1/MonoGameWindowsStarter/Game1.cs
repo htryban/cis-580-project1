@@ -123,22 +123,22 @@ namespace MonoGameWindowsStarter
 
             if (newKeyboardState.IsKeyDown(Keys.Escape))
                 Exit();
-            if (newKeyboardState.IsKeyDown(Keys.Left))
+            if (newKeyboardState.IsKeyDown(Keys.Left) || newKeyboardState.IsKeyDown(Keys.A))
             {
                 shipRect.X -= 10;
             }
 
-            if (newKeyboardState.IsKeyDown(Keys.Right))
+            if (newKeyboardState.IsKeyDown(Keys.Right) || newKeyboardState.IsKeyDown(Keys.D))
             {
                 shipRect.X += 10;
             }
 
-            if(newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Right))
+            if((newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Right)) || (newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.D)))
             {
                 shipRect.X += 50;
             }
 
-            else if(newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Left))
+            else if(newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Left) || (newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.A)))
             {
                 shipRect.X -= 50;
             }
@@ -243,6 +243,7 @@ namespace MonoGameWindowsStarter
             spriteBatch.Draw(rock, meteorRect4, Color.White);
             spriteBatch.Draw(rock, meteorRect5, Color.White);
             spriteBatch.DrawString(_font, "Dodge the meteors! \nUse the Arrows to Move and Press Space to Warp.", new Vector2(0,0), Color.White);
+            spriteBatch.DrawString(_font, "Meteors Dodged: " + score, new Vector2(graphics.PreferredBackBufferHeight - 50,0), Color.White);
             if(_paused){spriteBatch.DrawString(_font, "          Game Over\n   You Dodged " + score + " Meteors!\nPress Space To Play Again", new Vector2(500,500), Color.White);}
             spriteBatch.End();
             base.Draw(gameTime);
