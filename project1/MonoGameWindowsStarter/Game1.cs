@@ -13,7 +13,8 @@ namespace MonoGameWindowsStarter
         int progression = 0;
         int score = 0;
         bool _draw = true;
-        bool _paused = false;
+        bool _paused = true;
+        bool _started = false;
 
         private SpriteFont _font;
         GraphicsDeviceManager graphics;
@@ -123,28 +124,30 @@ namespace MonoGameWindowsStarter
 
             if (newKeyboardState.IsKeyDown(Keys.Escape))
                 Exit();
-            if (newKeyboardState.IsKeyDown(Keys.Left) || newKeyboardState.IsKeyDown(Keys.A))
+            if ((newKeyboardState.IsKeyDown(Keys.Left) || newKeyboardState.IsKeyDown(Keys.A)) && _started)
             {
                 shipRect.X -= 10;
             }
 
-            if (newKeyboardState.IsKeyDown(Keys.Right) || newKeyboardState.IsKeyDown(Keys.D))
+            if ((newKeyboardState.IsKeyDown(Keys.Right) || newKeyboardState.IsKeyDown(Keys.D)) && _started)
             {
                 shipRect.X += 10;
             }
 
-            if((newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Right)) || (newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.D)))
+            if(((newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Right)) || (newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.D))) && _started)
             {
                 shipRect.X += 50;
             }
 
-            else if(newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Left) || (newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.A)))
+            else if((newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Left) || (newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.A))) && _started)
             {
                 shipRect.X -= 50;
             }
 
+            //start meteors
             else if(newKeyboardState.IsKeyDown(Keys.Space) && _paused)
             {
+                if (!_started) _started = true;
                 score = 0;
                 progression = 0;
                 _paused = false;
@@ -177,51 +180,53 @@ namespace MonoGameWindowsStarter
                 SuppressDraw();
             }
 
-            if (progression > 15) progression = 15;
-            meteorRect1.Y += (int)(10 + progression*.9);
-            meteorRect2.Y += (int)(10 + progression*1.1);
-            meteorRect3.Y += (int)(10 + progression);
-            meteorRect4.Y += (int)(10 + progression*.5);
-            meteorRect5.Y += (int)(10 + progression*.8);
+            //draw meteors if game has been started
+            if(_started){
+                if (progression > 15) progression = 15;
+                meteorRect1.Y += (int)(10 + progression*.9);
+                meteorRect2.Y += (int)(10 + progression*1.1);
+                meteorRect3.Y += (int)(10 + progression);
+                meteorRect4.Y += (int)(10 + progression*.5);
+                meteorRect5.Y += (int)(10 + progression*.8);
 
-            if(meteorRect1.Y > 1200)
-            {
-                meteorRect1.Y = rand.Next(-200, -1);    
-                meteorRect1.X = rand.Next(1151);
-                score += 1;
-                progression += 1;
-            }
-            if(meteorRect2.Y > 1200)
-            {
-                meteorRect2.Y = rand.Next(-200, -1);    
-                meteorRect2.X = rand.Next(1151);
-                score += 1;
-            }
-            if(meteorRect3.Y > 1200)
-            {
-                meteorRect3.Y = rand.Next(-200, -1);
-                meteorRect3.X = rand.Next(1151);
-                score += 1;
-            }
-            if(meteorRect4.Y > 1200)
-            {
-                meteorRect4.Y = rand.Next(-200, -1);
-                meteorRect4.X = rand.Next(1151);
-                score += 1;
-            }
-            if(meteorRect5.Y > 1200)
-            {
-                meteorRect5.Y = rand.Next(-200, -1);
-                meteorRect5.X = rand.Next(1151);
-                score += 1;
-            }
+                if(meteorRect1.Y > 1200)
+                {
+                    meteorRect1.Y = rand.Next(-200, -1);    
+                    meteorRect1.X = rand.Next(1151);
+                    score += 1;
+                    progression += 1;
+                }
+                if(meteorRect2.Y > 1200)
+                {
+                    meteorRect2.Y = rand.Next(-200, -1);    
+                    meteorRect2.X = rand.Next(1151);
+                    score += 1;
+                }
+                if(meteorRect3.Y > 1200)
+                {
+                    meteorRect3.Y = rand.Next(-200, -1);
+                    meteorRect3.X = rand.Next(1151);
+                    score += 1;
+                }
+                if(meteorRect4.Y > 1200)
+                {
+                    meteorRect4.Y = rand.Next(-200, -1);
+                    meteorRect4.X = rand.Next(1151);
+                    score += 1;
+                }
+                if(meteorRect5.Y > 1200)
+                {
+                    meteorRect5.Y = rand.Next(-200, -1);
+                    meteorRect5.X = rand.Next(1151);
+                    score += 1;
+                }
 
-            if ((shipRect.Intersects(meteorRect1) || shipRect.Intersects(meteorRect2) || shipRect.Intersects(meteorRect3) || shipRect.Intersects(meteorRect4) || shipRect.Intersects(meteorRect5)) && !_paused)
-            {
-                _draw = false;
-                _paused = true;
-            } 
-            
+                if ((shipRect.Intersects(meteorRect1) || shipRect.Intersects(meteorRect2) || shipRect.Intersects(meteorRect3) || shipRect.Intersects(meteorRect4) || shipRect.Intersects(meteorRect5)) && !_paused)
+                {
+                    _draw = false;
+                    _paused = true;
+                } 
+            }
 
             base.Update(gameTime);
         }
@@ -237,14 +242,20 @@ namespace MonoGameWindowsStarter
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             spriteBatch.Draw(ship, shipRect, Color.White);
-            spriteBatch.Draw(rock, meteorRect1, Color.White);
-            spriteBatch.Draw(rock, meteorRect2, Color.White);
-            spriteBatch.Draw(rock, meteorRect3, Color.White);
-            spriteBatch.Draw(rock, meteorRect4, Color.White);
-            spriteBatch.Draw(rock, meteorRect5, Color.White);
-            spriteBatch.DrawString(_font, "Dodge the meteors! \nUse the Arrows to Move and Press Space to Warp.", new Vector2(0,0), Color.White);
-            spriteBatch.DrawString(_font, "Meteors Dodged: " + score, new Vector2(graphics.PreferredBackBufferHeight - 50,0), Color.White);
-            if(_paused){spriteBatch.DrawString(_font, "          Game Over\n   You Dodged " + score + " Meteors!\nPress Space To Play Again", new Vector2(500,500), Color.White);}
+            if(_started){
+                spriteBatch.Draw(rock, meteorRect1, Color.White);
+                spriteBatch.Draw(rock, meteorRect2, Color.White);
+                spriteBatch.Draw(rock, meteorRect3, Color.White);
+                spriteBatch.Draw(rock, meteorRect4, Color.White);
+                spriteBatch.Draw(rock, meteorRect5, Color.White);
+            }
+            if(!_started) spriteBatch.DrawString(_font,
+                "                       Dodge the meteors! \nUse the Arrows to Move and Press Space to Warp.\n                      Press Space to Start",
+                new Vector2(370,500), Color.White);
+            if(_started)spriteBatch.DrawString(_font, "Meteors Dodged: " + score, new Vector2(0,0), Color.White);
+            if(_paused && _started) spriteBatch.DrawString(_font,
+                "          Game Over\n   You Dodged " + score + " Meteors!\n Press Space To Play Again",
+                new Vector2(500,500), Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
         }
