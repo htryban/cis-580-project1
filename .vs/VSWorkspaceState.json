@@ -2,11 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\project1",
-    "\\project1\\MonoGameWindowsStarter",
-    "\\project1\\MonoGameWindowsStarter\\Content",
-    "\\project1\\MonoGameWindowsStarter\\Content\\bin",
-    "\\project1\\MonoGameWindowsStarter\\Content\\bin\\Windows"
+    "\\project1\\MonoGameWindowsStarter"
   ],
-  "SelectedNode": "\\project1\\MonoGameWindowsStarter\\Content\\Explosion.wav",
+  "SelectedNode": "\\project1\\MonoGameWindowsStarter\\Player.cs",
   "PreviewInSolutionExplorer": false
 }

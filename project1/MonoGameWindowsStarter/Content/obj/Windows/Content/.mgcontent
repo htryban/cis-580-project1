@@ -4,12 +4,20 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/blackship.png</File>
+    <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/bomb-sprite.png</File>
     <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/boom.mp3</File>
     <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/Explosion.wav</File>
     <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/Hotshot.mp3</File>
+    <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/shipspritesheet.png</File>
+    <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/spacesheet.png</File>
     <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/testfont.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -41,6 +41,11 @@ C:\Users\htryb\Source\Repos\cis-580-project1\project1\MonoGameWindowsStarter\obj
 C:\Users\htryb\Source\Repos\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.csproj.CopyComplete
 C:\Users\htryb\Source\Repos\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.exe
 C:\Users\htryb\Source\Repos\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.pdb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\boom.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\Explosion+1.mp3
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\Explosion.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\Hotshot.wma
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\Hotshot.xnb
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\testfont.xnb
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\MonoGameWindowsStarter.exe
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\MonoGameWindowsStarter.pdb
@@ -64,8 +69,7 @@ C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsSta
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.csproj.CopyComplete
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.exe
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.pdb
-C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\boom.xnb
-C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\Explosion+1.mp3
-C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\Hotshot.wma
-C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\Hotshot.xnb
-C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\Explosion.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\shipspritesheet.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\spacesheet.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\bomb-sprite.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\blackship.xnb

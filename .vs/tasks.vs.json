@@ -5,6 +5,11 @@
       "taskLabel": "task-boom",
       "appliesTo": "project1/MonoGameWindowsStarter/Content/boom.mp3",
       "type": "launch"
+    },
+    {
+      "taskLabel": "task-Player",
+      "appliesTo": "project1/MonoGameWindowsStarter/Player.cs",
+      "type": "launch"
     }
   ]
 }
