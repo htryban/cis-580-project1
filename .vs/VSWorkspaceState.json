@@ -3,8 +3,10 @@
     "",
     "\\project1",
     "\\project1\\MonoGameWindowsStarter",
-    "\\project1\\MonoGameWindowsStarter\\Content"
+    "\\project1\\MonoGameWindowsStarter\\Content",
+    "\\project1\\MonoGameWindowsStarter\\Content\\bin",
+    "\\project1\\MonoGameWindowsStarter\\Content\\bin\\Windows"
   ],
-  "SelectedNode": "\\project1\\MonoGameWindowsStarter\\Game1.cs",
+  "SelectedNode": "\\project1\\MonoGameWindowsStarter\\Content\\Explosion.wav",
   "PreviewInSolutionExplorer": false
 }

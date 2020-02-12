@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/Hotshot.mp3</SourceFile>
+  <SourceTime>2020-02-06T16:23:34-06:00</SourceTime>
+  <DestFile>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/bin/Windows/Content/Hotshot.xnb</DestFile>
+  <DestTime>2020-02-06T17:22:44.5397622-06:00</DestTime>
+  <Importer>Mp3Importer</Importer>
+  <ImporterTime>2018-12-08T10:35:54-06:00</ImporterTime>
+  <Processor>SongProcessor</Processor>
+  <ProcessorTime>2018-12-08T10:35:54-06:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput>
+    <string>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/bin/Windows/Content/Hotshot.wma</string>
+  </BuildOutput>
+</PipelineBuildEvent>

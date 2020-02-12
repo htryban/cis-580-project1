@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-boom",
+      "appliesTo": "project1/MonoGameWindowsStarter/Content/boom.mp3",
+      "type": "launch"
+    }
+  ]
+}

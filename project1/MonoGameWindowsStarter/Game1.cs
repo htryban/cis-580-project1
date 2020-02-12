@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
+using System.Collections.Generic;
 using System;
 
 namespace MonoGameWindowsStarter
@@ -19,6 +22,9 @@ namespace MonoGameWindowsStarter
         private SpriteFont _font;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Song backingtrack;
+        List<SoundEffect> soundEffects;
+
         Random rand = new Random();
         Rectangle shipRect;
         Rectangle meteorRect1;
@@ -35,6 +41,7 @@ namespace MonoGameWindowsStarter
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            soundEffects = new List<SoundEffect>();
         }
 
         /// <summary>
@@ -98,6 +105,17 @@ namespace MonoGameWindowsStarter
             ship = Content.Load<Texture2D>("shipicon2");
             rock = Content.Load<Texture2D>("meteor");
                 
+            this.backingtrack = Content.Load<Song>("Hotshot");
+            MediaPlayer.Play(backingtrack);
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
+            soundEffects.Add(Content.Load<SoundEffect>("Explosion"));
+        }
+
+        void MediaPlayer_MediaStateChanged(object sender, System.EventArgs e)
+        {
+            MediaPlayer.Volume -= 0.1f;
+            MediaPlayer.Play(backingtrack);
         }
 
         /// <summary>
@@ -152,15 +170,15 @@ namespace MonoGameWindowsStarter
                 progression = 0;
                 _paused = false;
                 _draw = true;
-                meteorRect1.Y = rand.Next(-200, -1);    
+                meteorRect1.Y = rand.Next(-400, -1);    
                 meteorRect1.X = rand.Next(1151);
-                meteorRect2.Y = rand.Next(-200, -1);    
+                meteorRect2.Y = rand.Next(-400, -1);    
                 meteorRect2.X = rand.Next(1151);
-                meteorRect3.Y = rand.Next(-200, -1);
+                meteorRect3.Y = rand.Next(-400, -1);
                 meteorRect3.X = rand.Next(1151);
-                meteorRect4.Y = rand.Next(-200, -1);
+                meteorRect4.Y = rand.Next(-400, -1);
                 meteorRect4.X = rand.Next(1151);
-                meteorRect5.Y = rand.Next(-200, -1);
+                meteorRect5.Y = rand.Next(-400, -1);
                 meteorRect5.X = rand.Next(1151);
                 shipRect.X = 550;
             }
@@ -223,6 +241,9 @@ namespace MonoGameWindowsStarter
 
                 if ((shipRect.Intersects(meteorRect1) || shipRect.Intersects(meteorRect2) || shipRect.Intersects(meteorRect3) || shipRect.Intersects(meteorRect4) || shipRect.Intersects(meteorRect5)) && !_paused)
                 {
+                    var instance = soundEffects[0].CreateInstance();
+                    //instance.Volume = 1.5f;
+                    instance.Play();
                     _draw = false;
                     _paused = true;
                 } 

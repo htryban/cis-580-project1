@@ -41,9 +41,7 @@ C:\Users\htryb\Source\Repos\cis-580-project1\project1\MonoGameWindowsStarter\obj
 C:\Users\htryb\Source\Repos\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.csproj.CopyComplete
 C:\Users\htryb\Source\Repos\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.exe
 C:\Users\htryb\Source\Repos\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.pdb
-C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.csprojAssemblyReference.cache
-C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.exe
-C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.pdb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\testfont.xnb
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\MonoGameWindowsStarter.exe
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\MonoGameWindowsStarter.pdb
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\MonoGame.Framework.dll
@@ -62,5 +60,12 @@ C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsSta
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.Direct3D11.xml
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.Direct2D1.xml
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\SharpDX.XInput.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.csprojAssemblyReference.cache
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.csproj.CopyComplete
-C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\testfont.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.exe
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Debug\MonoGameWindowsStarter.pdb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\boom.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\Explosion+1.mp3
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\Hotshot.wma
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\Hotshot.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\Explosion.xnb
