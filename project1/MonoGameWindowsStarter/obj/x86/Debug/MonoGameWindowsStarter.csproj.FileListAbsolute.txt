@@ -73,3 +73,4 @@ C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsSta
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\spacesheet.xnb
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\bomb-sprite.xnb
 C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\blackship.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Debug\Content\ship jump blip.xnb

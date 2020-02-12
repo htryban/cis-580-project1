@@ -114,6 +114,7 @@ namespace MonoGameWindowsStarter
             MediaPlayer.IsRepeating = true;
             MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
             soundEffects.Add(Content.Load<SoundEffect>("boom"));
+            soundEffects.Add(Content.Load<SoundEffect>("ship jump blip"));
             player.LoadContent();
         }
 
@@ -149,25 +150,35 @@ namespace MonoGameWindowsStarter
                 Exit();
             if ((newKeyboardState.IsKeyDown(Keys.Left) || newKeyboardState.IsKeyDown(Keys.A)) && _started)
             {
-                shipRect.X -= 10;
+                if(_draw) shipRect.X -= 10;
                 rotation = (float)-.5;
             }
 
             else if ((newKeyboardState.IsKeyDown(Keys.Right) || newKeyboardState.IsKeyDown(Keys.D)) && _started)
             {
-                shipRect.X += 10;
+                if (_draw) shipRect.X += 10;
                 rotation = (float).5;
             }
 
             if (((newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Right)) || (newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.D))) && _started)
             {
-                shipRect.X += 50;
+                if (_draw)
+                {
+                    shipRect.X += 50;
+                    var instance = soundEffects[1].CreateInstance();
+                    instance.Play();
+                }
                 rotation = (float).5;
             }
 
             else if ((newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Left) || (newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.A))) && _started)
             {
-                shipRect.X -= 50;
+                if (_draw)
+                {
+                    shipRect.X -= 50;
+                    var instance = soundEffects[1].CreateInstance();
+                    instance.Play();
+                }
                 rotation = (float)-.5;
             }
             
@@ -193,8 +204,11 @@ namespace MonoGameWindowsStarter
                 shipRect.X = 550;
             }
 
+            //idle rotation to 0 when not moving
             if (newKeyboardState.IsKeyUp(Keys.Left) && newKeyboardState.IsKeyUp(Keys.Right) && newKeyboardState.IsKeyUp(Keys.A) && newKeyboardState.IsKeyUp(Keys.D)) rotation = 0;
 
+
+            //keep ship on screen
             if (shipRect.X < 0)
             {
                 shipRect.X = 0;
@@ -205,10 +219,6 @@ namespace MonoGameWindowsStarter
                 shipRect.X = GraphicsDevice.Viewport.Width - shipRect.Width;
             }
 
-            if(!_draw)
-            {
-                //SuppressDraw();
-            }
 
             //draw meteors if game has been started
             if(_started){

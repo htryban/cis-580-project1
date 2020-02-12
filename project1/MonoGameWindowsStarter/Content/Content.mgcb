@@ -55,6 +55,12 @@
 /processorParam:Quality=Best
 /build:Hotshot.mp3
 
+#begin ship jump blip.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ship jump blip.wav
+
 #begin shipspritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
