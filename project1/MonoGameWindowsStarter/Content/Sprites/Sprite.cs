@@ -33,7 +33,9 @@ namespace MonoGameWindowsStarter.Content.Sprites
             Origin = new Vector2(_textures.Width / 2, _textures.Height / 2);
         }
 
-        public virtual void Update(GameTime gameTime, List<Sprite> sprites, Vector2 dir)
+        
+
+        public virtual void Update(GameTime gameTime, List<Sprite> sprites, Vector2 dir, int count)
         {
 
         }

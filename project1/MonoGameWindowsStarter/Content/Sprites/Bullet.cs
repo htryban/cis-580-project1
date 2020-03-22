@@ -16,7 +16,7 @@ namespace MonoGameWindowsStarter.Content.Sprites
         {
 
         }
-        public override void Update(GameTime gameTime, List<Sprite> sprites, Vector2 dir)
+        public override void Update(GameTime gameTime, List<Sprite> sprites, Vector2 dir, int count)
         {
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 

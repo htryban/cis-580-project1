@@ -19,7 +19,7 @@ namespace MonoGameWindowsStarter.Content.Sprites
             this.game = game;
         }
 
-        public override void Update(GameTime gameTime, List<Sprite> sprites, Vector2 dir)
+        public override void Update(GameTime gameTime, List<Sprite> sprites, Vector2 dir, int count)
         {
             previousKey = currentKey;
             currentKey = Keyboard.GetState();

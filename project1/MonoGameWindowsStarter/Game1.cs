@@ -40,6 +40,7 @@ namespace MonoGameWindowsStarter
         bool _paused = true;
         bool _started = false;
         float rotation = 0;
+        float _timer = 15;
         SpriteEffects effect = SpriteEffects.None;
 
         private SpriteFont _font;
@@ -148,6 +149,7 @@ namespace MonoGameWindowsStarter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if(_started) _timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -166,6 +168,8 @@ namespace MonoGameWindowsStarter
                     shipRect.X = 900;
                     shipRect.Y = 900;
                     rotation = 0;
+                    direction = new Vector2(0, -1);
+                    _timer = 15;
                 }
 
                 //eats the first space to prevent firing on start
@@ -176,8 +180,6 @@ namespace MonoGameWindowsStarter
                 if (newKeyboardState.IsKeyDown(Keys.R) && !_meteorsStarted && prevKey.IsKeyDown(Keys.R))
                 {
                     _meteorsStarted = true;
-                    //shipRect.X = 900;
-                    //shipRect.Y = 900;
                     _enemySprite = new List<Sprite>()
                     {
                         new Enemies(rock, this)
@@ -185,10 +187,13 @@ namespace MonoGameWindowsStarter
                             Position = new Vector2(100, 100),
                             Enemy = new Enemy(Content.Load<Texture2D>("Meteor"))
                         }
+                        
                     };
                 }
 
-                if((newKeyboardState.IsKeyDown(Keys.Up) && (newKeyboardState.IsKeyDown(Keys.Left))) || (newKeyboardState.IsKeyDown(Keys.W) && (newKeyboardState.IsKeyDown(Keys.A)))) movement = shipMovement.UpLeft;
+                
+
+                if ((newKeyboardState.IsKeyDown(Keys.Up) && (newKeyboardState.IsKeyDown(Keys.Left))) || (newKeyboardState.IsKeyDown(Keys.W) && (newKeyboardState.IsKeyDown(Keys.A)))) movement = shipMovement.UpLeft;
                 else if((newKeyboardState.IsKeyDown(Keys.Up) && (newKeyboardState.IsKeyDown(Keys.Right))) || (newKeyboardState.IsKeyDown(Keys.W) && (newKeyboardState.IsKeyDown(Keys.D)))) movement = shipMovement.UpRight;
                 else if((newKeyboardState.IsKeyDown(Keys.Down) && (newKeyboardState.IsKeyDown(Keys.Left))) || (newKeyboardState.IsKeyDown(Keys.S) && (newKeyboardState.IsKeyDown(Keys.A)))) movement = shipMovement.DownLeft;
                 else if((newKeyboardState.IsKeyDown(Keys.Down) && (newKeyboardState.IsKeyDown(Keys.Right))) || (newKeyboardState.IsKeyDown(Keys.S) && (newKeyboardState.IsKeyDown(Keys.D)))) movement = shipMovement.DownRight;
@@ -265,14 +270,28 @@ namespace MonoGameWindowsStarter
             
 
             foreach (var sprite in _sprite.ToArray())
-                sprite.Update(gameTime, _sprite, direction);
+                sprite.Update(gameTime, _sprite, direction, 0);
 
             if (_enemySprite != null) {
                 foreach (var sprite in _enemySprite.ToArray())
-                    sprite.Update(gameTime, _enemySprite, direction);
+                    sprite.Update(gameTime, _enemySprite, direction, 5);
             }
 
-            
+            if (_timer <= 0) 
+            {
+                for (int i = 1; i < _enemySprite.Count; i++) _enemySprite.RemoveAt(i);
+                died = true;
+                _draw = false;
+                _started = false;
+                var instance = soundEffects[0].CreateInstance();
+                instance.Play();
+                eat = 0;
+                //shipRect.X = 900;
+                //shipRect.Y = 900;
+                displayScore = score;
+                score = 0;
+            }
+
             if (_enemySprite != null) {
                 safe = false;
                 for (int e = 1; e < _enemySprite.Count; e++)
@@ -383,9 +402,10 @@ namespace MonoGameWindowsStarter
                     _enemySprite[i].Draw(spriteBatch);
             }
                         
-            if(_started)spriteBatch.DrawString(_font, "Score: " + score, new Vector2(0,0), Color.White);
-            if(!_started && !died) spriteBatch.DrawString(_font,
-                "                       Use the Arrows or WASD to Move\n                        Press Space to Shoot / Continue",
+            if(_started)spriteBatch.DrawString(_font, "Score: " + score + "\nPress 'R' to spawn the next wave of enemies ", new Vector2(0,0), Color.White);
+            if (_started) spriteBatch.DrawString(_font, "Time Left: " + _timer, new Vector2(1600, 0), Color.White);
+            if (!_started && !died) spriteBatch.DrawString(_font,
+                "                       Use the Arrows or WASD to Move\n                        Press Space to Shoot / Continue\n                        Destroy as many Meteors you can in the given time",
                 new Vector2(600,650), Color.White);
             if(died && !_started){ spriteBatch.DrawString(_font, 
                 "                       You Destroyed " + displayScore + " Meteors\n                       Press Space to play again", new Vector2(600,650), Color.White);

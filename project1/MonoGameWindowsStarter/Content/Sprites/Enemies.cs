@@ -20,25 +20,36 @@ namespace MonoGameWindowsStarter.Content.Sprites
             this.game = game;
         }
 
-        public override void Update(GameTime gameTime, List<Sprite> sprites, Vector2 dir)
+        public override void Update(GameTime gameTime, List<Sprite> sprites, Vector2 dir, int count)
         {
             previousKey = currentKey;
             currentKey = Keyboard.GetState();
             Direction = dir;
             //Position = new Vector2(game.getShipX(), game.getShipY());
-            Position = new Vector2((float)rand.Next(50, 1750), (float)rand.Next(50, 1250));
+            
 
             if (currentKey.IsKeyDown(Keys.R) && previousKey.IsKeyUp(Keys.R) && game.isStarted())
             {
+                for (int i = 0; i < count; i++)
+                {
+                    Position = new Vector2((float)rand.Next(50, 1750), (float)rand.Next(50, 1250));
+                    spawnEnemies(sprites);
+                }
+            } 
+
+
+        }
+
+        private void spawnEnemies(List<Sprite> sprites)
+        {
                 var enemy = Enemy.Clone() as Enemy;
                 enemy.Direction = new Vector2();
                 enemy.Position = this.Position;
                 enemy.linearVel = this.linearVel * 3;
-               
+
                 sprites.Add(enemy);
-            }
-
-
+           
         }
+
     }
 }
