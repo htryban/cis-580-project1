@@ -5,10 +5,23 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
 using System;
-
+using MonoGameWindowsStarter.Content.Sprites;
 
 namespace MonoGameWindowsStarter
 {
+    enum shipMovement
+    {
+        Idle,
+        Up,
+        Down,
+        Left,
+        Right,
+        UpLeft,
+        UpRight,
+        DownLeft,
+        DownRight
+    }
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -16,10 +29,18 @@ namespace MonoGameWindowsStarter
     {
         int progression = 0;
         int score = 0;
+        int eat = 0;
+        int displayScore = 0;
+        string te = "";
+        bool scored = false;
+        bool died = false;
+        bool safe = false;
+        bool _meteorsStarted = false;
         bool _draw = true;
         bool _paused = true;
         bool _started = false;
         float rotation = 0;
+        SpriteEffects effect = SpriteEffects.None;
 
         private SpriteFont _font;
         GraphicsDeviceManager graphics;
@@ -30,15 +51,17 @@ namespace MonoGameWindowsStarter
 
         Random rand = new Random();
         Rectangle shipRect;
-        Rectangle meteorRect1;
-        Rectangle meteorRect2;
-        Rectangle meteorRect3;
-        Rectangle meteorRect4;
-        Rectangle meteorRect5;
         Texture2D ship;
         Texture2D rock;
-        //KeyboardState oldKeyboardState;
+        Texture2D bull;
         KeyboardState newKeyboardState;
+        KeyboardState prevKey;
+        Meteor m1;
+        shipMovement movement = shipMovement.Idle;
+
+        private List<Sprite> _sprite;
+        private List<Sprite> _enemySprite;
+        Vector2 direction = new Vector2(0, -1);
 
         public Game1()
         {
@@ -46,6 +69,9 @@ namespace MonoGameWindowsStarter
             Content.RootDirectory = "Content";
             soundEffects = new List<SoundEffect>();
             player = new Player(this);
+            m1 = new Meteor { meteorRect = new Rectangle(0,0, 50,50), Progression = 1.0, Width = 50, Height = 50 };
+            //flyweight = new Flyweight(new Meteor { meteorRect = meteorRect1, Progression = 1.0, Width = 50, Height = 50 });
+            
         }
 
         /// <summary>
@@ -56,40 +82,14 @@ namespace MonoGameWindowsStarter
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            graphics.PreferredBackBufferWidth = 1200;
-            graphics.PreferredBackBufferHeight = 1000;
+            graphics.PreferredBackBufferWidth = 1800;
+            graphics.PreferredBackBufferHeight = 1300;
             graphics.ApplyChanges();
 
-            shipRect.X = 550;
+            shipRect.X = 900;
             shipRect.Y = 900;
             shipRect.Width = 70;
             shipRect.Height = 80;
-
-            meteorRect1.X = rand.Next(900, 1150);
-            meteorRect1.Y = rand.Next(-200, -1);
-            meteorRect1.Width = 50;
-            meteorRect1.Height = 50;
-
-            meteorRect2.X = rand.Next(650, 900);
-            meteorRect2.Y = -100;
-            meteorRect2.Width = 50;
-            meteorRect2.Height = 50;
-
-            meteorRect3.X = rand.Next(450, 650);
-            meteorRect3.Y = rand.Next(-200, -1);
-            meteorRect3.Width = 50;
-            meteorRect3.Height = 50;
-
-            meteorRect4.X = rand.Next(250, 450);
-            meteorRect4.Y = -300;
-            meteorRect4.Width = 50;
-            meteorRect4.Height = 50;
-
-            meteorRect5.X = rand.Next(250);
-            meteorRect5.Y = rand.Next(-200, -1);
-            meteorRect5.Width = 50;
-            meteorRect5.Height = 50;
 
             _font = Content.Load<SpriteFont>("testfont"); 
 
@@ -102,20 +102,28 @@ namespace MonoGameWindowsStarter
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
             ship = Content.Load<Texture2D>("blackship");
             rock = Content.Load<Texture2D>("meteor");
+            bull = Content.Load<Texture2D>("Bullet");
                 
             this.backingtrack = Content.Load<Song>("Hotshot");
-            MediaPlayer.Play(backingtrack);
+            //MediaPlayer.Play(backingtrack);
             MediaPlayer.IsRepeating = true;
             MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
             soundEffects.Add(Content.Load<SoundEffect>("boom"));
             soundEffects.Add(Content.Load<SoundEffect>("ship jump blip"));
             player.LoadContent();
+
+            _sprite = new List<Sprite>()
+            {
+                new Ship(ship, this)
+                {
+                    Position = new Vector2(shipRect.X, shipRect.Y),
+                    Bullet = new Bullet(Content.Load<Texture2D>("Bullet")),
+                },
+            };
         }
 
         void MediaPlayer_MediaStateChanged(object sender, System.EventArgs e)
@@ -144,133 +152,184 @@ namespace MonoGameWindowsStarter
                 Exit();
 
             // TODO: Add your update logic here
+            prevKey = newKeyboardState;
             newKeyboardState = Keyboard.GetState();
 
             if (newKeyboardState.IsKeyDown(Keys.Escape))
                 Exit();
-            if ((newKeyboardState.IsKeyDown(Keys.Left) || newKeyboardState.IsKeyDown(Keys.A)) && _started)
+            if (eat < 2 && newKeyboardState.IsKeyDown(Keys.Space))
             {
-                if(_draw) shipRect.X -= 10;
-                rotation = (float)-.5;
-            }
-
-            else if ((newKeyboardState.IsKeyDown(Keys.Right) || newKeyboardState.IsKeyDown(Keys.D)) && _started)
-            {
-                if (_draw) shipRect.X += 10;
-                rotation = (float).5;
-            }
-
-            if (((newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Right)) || (newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.D))) && _started)
-            {
-                if (_draw)
+                _started = true;
+                _draw = true;
+                if(died)
                 {
-                    shipRect.X += 50;
-                    var instance = soundEffects[1].CreateInstance();
-                    instance.Play();
+                    shipRect.X = 900;
+                    shipRect.Y = 900;
+                    rotation = 0;
                 }
-                rotation = (float).5;
-            }
 
-            else if ((newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.Left) || (newKeyboardState.IsKeyDown(Keys.Space) && newKeyboardState.IsKeyDown(Keys.A))) && _started)
-            {
-                if (_draw)
-                {
-                    shipRect.X -= 50;
-                    var instance = soundEffects[1].CreateInstance();
-                    instance.Play();
-                }
-                rotation = (float)-.5;
+                //eats the first space to prevent firing on start
+                eat += 1;
             }
             
-
-            //start meteors
-            else if(newKeyboardState.IsKeyDown(Keys.Space) && _paused)
-            {
-                if (!_started) _started = true;
-                score = 0;
-                progression = 0;
-                _paused = false;
-                _draw = true;
-                meteorRect1.Y = rand.Next(-400, -1);    
-                meteorRect1.X = rand.Next(1151);
-                meteorRect2.Y = rand.Next(-400, -1);    
-                meteorRect2.X = rand.Next(1151);
-                meteorRect3.Y = rand.Next(-400, -1);
-                meteorRect3.X = rand.Next(1151);
-                meteorRect4.Y = rand.Next(-400, -1);
-                meteorRect4.X = rand.Next(1151);
-                meteorRect5.Y = rand.Next(-400, -1);
-                meteorRect5.X = rand.Next(1151);
-                shipRect.X = 550;
-            }
-
-            //idle rotation to 0 when not moving
-            if (newKeyboardState.IsKeyUp(Keys.Left) && newKeyboardState.IsKeyUp(Keys.Right) && newKeyboardState.IsKeyUp(Keys.A) && newKeyboardState.IsKeyUp(Keys.D)) rotation = 0;
-
-
-            //keep ship on screen
-            if (shipRect.X < 0)
-            {
-                shipRect.X = 0;
-            }
-
-            if(shipRect.X > GraphicsDevice.Viewport.Width - shipRect.Width)
-            {
-                shipRect.X = GraphicsDevice.Viewport.Width - shipRect.Width;
-            }
-
-
-            //draw meteors if game has been started
             if(_started){
-                if (progression > 15) progression = 15;
-                meteorRect1.Y += (int)(10 + progression*.9);
-                meteorRect2.Y += (int)(10 + progression*1.1);
-                meteorRect3.Y += (int)(10 + progression);
-                meteorRect4.Y += (int)(10 + progression*.5);
-                meteorRect5.Y += (int)(10 + progression*.8);
-
-                if(meteorRect1.Y > 1200)
+                if (newKeyboardState.IsKeyDown(Keys.R) && !_meteorsStarted && prevKey.IsKeyDown(Keys.R))
                 {
-                    meteorRect1.Y = rand.Next(-200, -1);    
-                    meteorRect1.X = rand.Next(1151);
-                    if (_draw)
+                    _meteorsStarted = true;
+                    //shipRect.X = 900;
+                    //shipRect.Y = 900;
+                    _enemySprite = new List<Sprite>()
                     {
-                        score += 1;
-                        progression += 1;
+                        new Enemies(rock, this)
+                        {
+                            Position = new Vector2(100, 100),
+                            Enemy = new Enemy(Content.Load<Texture2D>("Meteor"))
+                        }
+                    };
+                }
+
+                if((newKeyboardState.IsKeyDown(Keys.Up) && (newKeyboardState.IsKeyDown(Keys.Left))) || (newKeyboardState.IsKeyDown(Keys.W) && (newKeyboardState.IsKeyDown(Keys.A)))) movement = shipMovement.UpLeft;
+                else if((newKeyboardState.IsKeyDown(Keys.Up) && (newKeyboardState.IsKeyDown(Keys.Right))) || (newKeyboardState.IsKeyDown(Keys.W) && (newKeyboardState.IsKeyDown(Keys.D)))) movement = shipMovement.UpRight;
+                else if((newKeyboardState.IsKeyDown(Keys.Down) && (newKeyboardState.IsKeyDown(Keys.Left))) || (newKeyboardState.IsKeyDown(Keys.S) && (newKeyboardState.IsKeyDown(Keys.A)))) movement = shipMovement.DownLeft;
+                else if((newKeyboardState.IsKeyDown(Keys.Down) && (newKeyboardState.IsKeyDown(Keys.Right))) || (newKeyboardState.IsKeyDown(Keys.S) && (newKeyboardState.IsKeyDown(Keys.D)))) movement = shipMovement.DownRight;
+                else if (newKeyboardState.IsKeyDown(Keys.Up) || newKeyboardState.IsKeyDown(Keys.W)) movement = shipMovement.Up;
+                else if (newKeyboardState.IsKeyDown(Keys.Down) || newKeyboardState.IsKeyDown(Keys.S)) movement = shipMovement.Down;
+                else if (newKeyboardState.IsKeyDown(Keys.Left) || newKeyboardState.IsKeyDown(Keys.A)) movement = shipMovement.Left;
+                else if (newKeyboardState.IsKeyDown(Keys.Right) || newKeyboardState.IsKeyDown(Keys.D)) movement = shipMovement.Right;
+                else movement = shipMovement.Idle;
+            }
+
+            if(_started && _draw)
+            {
+                switch(movement)
+                {
+                    case shipMovement.UpLeft:
+                        shipRect.Y -= 7;
+                        shipRect.X -= 7;
+                        rotation = (float)-.5;
+                        direction = new Vector2(-1, -1);
+                        break;
+                    case shipMovement.UpRight:
+                        shipRect.Y -= 7;
+                        shipRect.X += 7;
+                        rotation = (float).5;
+                        direction = new Vector2(1, -1);
+                        break;
+                    case shipMovement.DownRight:
+                        shipRect.Y += 7;
+                        shipRect.X += 7;
+                        rotation = (float)2.2;
+                        direction = new Vector2(1, 1);
+                        break;
+                    case shipMovement.DownLeft:
+                        shipRect.Y += 7;
+                        shipRect.X -= 7;
+                        rotation = (float)-2.2;
+                        direction = new Vector2(-1, 1);
+                        break;
+                    case shipMovement.Up:
+                        shipRect.Y -= 10;
+                        rotation = 0;
+                        effect = SpriteEffects.None;
+                        direction = new Vector2(0, -1);
+                        break;
+                    case shipMovement.Down:
+                        shipRect.Y += 10;
+                        rotation = (float)3.125;
+                        direction = new Vector2(0, 1);
+                        break;
+                    case shipMovement.Left:
+                        shipRect.X -= 10;
+                        rotation = (float)-1.6;
+                        direction = new Vector2(-1, 0);
+                        break;
+                    case shipMovement.Right:
+                        shipRect.X += 10;
+                        rotation = (float)1.6;
+                        direction = new Vector2(1,0);
+                        break;
+                    case shipMovement.Idle:
+                    default: break;
+                }
+            }
+            
+            //keep ship on screen
+            if (shipRect.X < 0 + (shipRect.Width / 2)) shipRect.X = 0 + (shipRect.Width / 2);
+            
+            if (shipRect.X > GraphicsDevice.Viewport.Width - (shipRect.Width / 2)) shipRect.X = GraphicsDevice.Viewport.Width - (shipRect.Width / 2);
+            
+            if (shipRect.Y < 0  + (shipRect.Height / 2)) shipRect.Y = 0 + (shipRect.Height / 2);
+
+            if (shipRect.Y > GraphicsDevice.Viewport.Height - (shipRect.Height / 2)) shipRect.Y = GraphicsDevice.Viewport.Height - (shipRect.Height / 2);
+          
+            
+
+            foreach (var sprite in _sprite.ToArray())
+                sprite.Update(gameTime, _sprite, direction);
+
+            if (_enemySprite != null) {
+                foreach (var sprite in _enemySprite.ToArray())
+                    sprite.Update(gameTime, _enemySprite, direction);
+            }
+
+            
+            if (_enemySprite != null) {
+                safe = false;
+                for (int e = 1; e < _enemySprite.Count; e++)
+                {
+                    scored = false;
+                    for (int i = 1; i < _sprite.Count; i++)
+                    {
+                        try {
+                            if(_enemySprite[e] == null || _sprite[i] == null)
+                            {
+                                continue;
+                            }
+                            else if(_sprite[i].isRemoved)
+                            {
+                                _sprite.RemoveAt(i);
+                                i--;
+                            }
+                            else if (colliding(_enemySprite[e].Position, _sprite[i].Position))
+                            {
+                                if (!scored)
+                                {
+                                    scored = true;
+                                    score++;
+                                    _enemySprite.RemoveAt(e);
+                                    _sprite.RemoveAt(i);
+                                }
+                            }
+                        }
+                        catch (ArgumentOutOfRangeException oor)
+                        {
+                            continue;
+                        }
+                        if (scored) continue;
+                    }
+                    try {
+                        if(shipRect.Intersects(toRect(_enemySprite[e].Position)))
+                        {
+                            for(int i = 1; i < _enemySprite.Count; i++) _enemySprite.RemoveAt(i);
+                            died = true;
+                            _draw = false;
+                            _started = false;
+                            var instance = soundEffects[0].CreateInstance();
+                            instance.Play();
+                            eat = 0;
+                            //shipRect.X = 900;
+                            //shipRect.Y = 900;
+                            displayScore = score;
+                            score = 0;
+                            break;
+                        }
+                    }
+                    catch (ArgumentOutOfRangeException oor)
+                    {
+                        continue;
                     }
                 }
-                if(meteorRect2.Y > 1200)
-                {
-                    meteorRect2.Y = rand.Next(-200, -1);    
-                    meteorRect2.X = rand.Next(1151);
-                    if(_draw) score += 1;
-                }
-                if(meteorRect3.Y > 1200)
-                {
-                    meteorRect3.Y = rand.Next(-200, -1);
-                    meteorRect3.X = rand.Next(1151);
-                    if (_draw) score += 1;
-                }
-                if(meteorRect4.Y > 1200)
-                {
-                    meteorRect4.Y = rand.Next(-200, -1);
-                    meteorRect4.X = rand.Next(1151);
-                    if (_draw) score += 1;
-                }
-                if(meteorRect5.Y > 1200)
-                {
-                    meteorRect5.Y = rand.Next(-200, -1);
-                    meteorRect5.X = rand.Next(1151);
-                    if (_draw) score += 1;
-                }
-
-                if ((shipRect.Intersects(meteorRect1) || shipRect.Intersects(meteorRect2) || shipRect.Intersects(meteorRect3) || shipRect.Intersects(meteorRect4) || shipRect.Intersects(meteorRect5)) && !_paused)
-                {
-                    var instance = soundEffects[0].CreateInstance();
-                    instance.Play();
-                    _draw = false;
-                    _paused = true;
-                } 
+                safe = true;
             }
 
             player.Update(gameTime);
@@ -278,9 +337,31 @@ namespace MonoGameWindowsStarter
             base.Update(gameTime);
         }
 
-        public int getShipX()
+        public bool colliding(Vector2 enemy, Vector2 bullet)
+        {
+            if ((bullet.X >= enemy.X - 20) && (bullet.X <= enemy.X + 28) && (bullet.Y <= enemy.Y + 40) && (bullet.Y + bull.Height + 20 >= enemy.Y)) return true;
+            return false;
+        }
+
+        public Rectangle toRect(Vector2 a)
+        {
+            return new Rectangle((int)a.X + 5, (int)a.Y, 40, 50);
+        }
+
+        public bool isStarted()
+        {
+            if (eat > 1) return true;
+            return false;
+        }
+
+        public float getShipX()
         {
             return shipRect.X;
+        }
+
+        public float getShipY()
+        {
+            return shipRect.Y;
         }
 
         /// <summary>
@@ -289,27 +370,25 @@ namespace MonoGameWindowsStarter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.MediumPurple);
+            GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
             spriteBatch.Begin();
-            if(_draw) spriteBatch.Draw(ship, shipRect, null, Color.White, rotation, new Vector2(ship.Width / 2f, ship.Height / 2f), SpriteEffects.None, 0);
-            if(_started){
-                spriteBatch.Draw(rock, meteorRect1, Color.White);
-                spriteBatch.Draw(rock, meteorRect2, Color.White);
-                spriteBatch.Draw(rock, meteorRect3, Color.White);
-                spriteBatch.Draw(rock, meteorRect4, Color.White);
-                spriteBatch.Draw(rock, meteorRect5, Color.White);
-            }
-            if(!_started) spriteBatch.DrawString(_font,
-                "                       Dodge the meteors! \nUse the Arrows to Move and Press Space to Warp.\n                      Press Space to Start",
-                new Vector2(370,500), Color.White);
-            if(_started)spriteBatch.DrawString(_font, "Meteors Dodged: " + score, new Vector2(0,0), Color.White);
-            if (_paused && _started)
+            if(_draw) spriteBatch.Draw(ship, shipRect, null, Color.White, rotation, new Vector2(ship.Width / 2f, ship.Height / 2f), effect, 0);
+            
+            for (int i = 1; i < _sprite.Count; i++)
+                _sprite[i].Draw(spriteBatch);
+            if (_enemySprite != null)
             {
-                spriteBatch.DrawString(_font,
-                "          Game Over\n   You Dodged " + score + " Meteors!\n Press Space To Play Again",
-                new Vector2(500, 500), Color.White);
+                for (int i = 1; i < _enemySprite.Count; i++)
+                    _enemySprite[i].Draw(spriteBatch);
+            }
+                        
+            if(_started)spriteBatch.DrawString(_font, "Score: " + score, new Vector2(0,0), Color.White);
+            if(!_started && !died) spriteBatch.DrawString(_font,
+                "                       Use the Arrows or WASD to Move\n                        Press Space to Shoot / Continue",
+                new Vector2(600,650), Color.White);
+            if(died && !_started){ spriteBatch.DrawString(_font, 
+                "                       You Destroyed " + displayScore + " Meteors\n                       Press Space to play again", new Vector2(600,650), Color.White);
                 player.Draw(spriteBatch);
             }
             spriteBatch.End();

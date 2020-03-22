@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/htryb/source/repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/testfont.spritefont</SourceFile>
-  <SourceTime>2018-12-08T10:35:46-06:00</SourceTime>
+  <SourceTime>2020-02-04T18:14:27.7340889-06:00</SourceTime>
   <DestFile>C:/Users/htryb/source/repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/bin/Windows/testfont.xnb</DestFile>
-  <DestTime>2020-02-01T23:38:37.7296981-06:00</DestTime>
+  <DestTime>2020-03-15T23:37:16.3553227-05:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2018-12-08T10:35:54-06:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

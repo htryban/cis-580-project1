@@ -53,7 +53,7 @@ namespace MonoGameWindowsStarter
         TimeSpan timer;
         int frame;
         Vector2 position;
-        SpriteFont font;
+        //SpriteFont font;
 
         /// <summary>
         /// Creates a new player object
@@ -85,20 +85,6 @@ namespace MonoGameWindowsStarter
             KeyboardState keyboard = Keyboard.GetState();
             float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            /*
-            // Update the player state based on input
-            if (keyboard.IsKeyDown(Keys.Left))
-            {
-                state = State.West;
-                position.X -= 10;//delta * PLAYER_SPEED;
-            }
-            else if (keyboard.IsKeyDown(Keys.Right))
-            {
-                state = State.East;
-                position.X += 10;//delta * PLAYER_SPEED;
-            }
-            else state = State.Idle;
-            */
             state = State.Idle;
             position.X += delta;
 
@@ -135,7 +121,7 @@ namespace MonoGameWindowsStarter
                 );
 
             // render the sprite
-            spriteBatch.Draw(texture, new Vector2(game.getShipX()-50, 840), source, Color.White);
+            spriteBatch.Draw(texture, new Vector2(game.getShipX() - 50, game.getShipY() - 30), source, Color.White);
 
             // render the sprite's coordinates in the upper-right-hand corner of the screen
             //spriteBatch.DrawString(font, $"X:{position.X} Y:{position.Y}", Vector2.Zero, Color.White);
