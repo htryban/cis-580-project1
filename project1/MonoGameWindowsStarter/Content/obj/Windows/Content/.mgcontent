@@ -10,12 +10,16 @@
     <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/Bullet.png</File>
     <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/Explosion.wav</File>
     <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/Hotshot.mp3</File>
+    <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/Particle.png</File>
+    <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/rock no trail.png</File>
     <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/ship jump blip.wav</File>
     <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/shipspritesheet.png</File>
     <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/spacesheet.png</File>
     <File>C:/Users/htryb/Source/Repos/CIS 580/cis-580-project1/project1/MonoGameWindowsStarter/Content/testfont.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

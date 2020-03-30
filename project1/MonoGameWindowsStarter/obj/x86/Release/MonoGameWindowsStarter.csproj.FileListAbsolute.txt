@@ -1,0 +1,36 @@
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\blackship.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\bomb-sprite.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\boom.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\Bullet.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\Explosion+1.mp3
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\Explosion.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\Hotshot.wma
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\Hotshot.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\ship jump blip.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\shipspritesheet.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\spacesheet.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\testfont.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\MonoGameWindowsStarter.exe
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\MonoGameWindowsStarter.pdb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\MonoGame.Framework.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.MediaFoundation.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.XAudio2.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.DXGI.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.Direct3D11.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.Direct2D1.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.XInput.dll
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\MonoGame.Framework.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.MediaFoundation.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.XAudio2.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.DXGI.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.Direct3D11.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.Direct2D1.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\SharpDX.XInput.xml
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Release\MonoGameWindowsStarter.csproj.CopyComplete
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Release\MonoGameWindowsStarter.exe
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Release\MonoGameWindowsStarter.pdb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\obj\x86\Release\MonoGameWindowsStarter.csprojAssemblyReference.cache
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\Particle.xnb
+C:\Users\htryb\Source\Repos\CIS 580\cis-580-project1\project1\MonoGameWindowsStarter\bin\Windows\x86\Release\Content\rock no trail.xnb

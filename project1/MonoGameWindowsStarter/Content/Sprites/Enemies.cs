@@ -13,6 +13,7 @@ namespace MonoGameWindowsStarter.Content.Sprites
     {
         public Enemy Enemy;
         Random rand = new Random();
+        float _timer = 0;
 
         Game1 game;
         public Enemies(Texture2D texture, Game1 game) : base(texture)
@@ -28,12 +29,18 @@ namespace MonoGameWindowsStarter.Content.Sprites
             //Position = new Vector2(game.getShipX(), game.getShipY());
             
 
-            if (currentKey.IsKeyDown(Keys.R) && previousKey.IsKeyUp(Keys.R) && game.isStarted())
+            if (true)//previousKey.IsKeyUp(Keys.P) && game.isStarted())
             {
-                for (int i = 0; i < count; i++)
+                _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (_timer >= 3)
                 {
-                    Position = new Vector2((float)rand.Next(50, 1750), (float)rand.Next(50, 1250));
-                    spawnEnemies(sprites);
+                    _timer -= 3;
+                    for (int i = 0; i < count; i++)
+                    {
+                        Position = new Vector2((float)rand.Next(50, 1750), (float)rand.Next(50, 1250));
+                        spawnEnemies(sprites);
+                    }
                 }
             } 
 
@@ -45,7 +52,7 @@ namespace MonoGameWindowsStarter.Content.Sprites
                 var enemy = Enemy.Clone() as Enemy;
                 enemy.Direction = new Vector2();
                 enemy.Position = this.Position;
-                enemy.linearVel = this.linearVel * 3;
+                enemy.linearVel = this.linearVel * 2;
 
                 sprites.Add(enemy);
            

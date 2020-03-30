@@ -48,6 +48,8 @@
     <Compile Include="Content\Sprites\Sprite.cs" />
     <Compile Include="Flyweight.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="particle.cs" />
+    <Compile Include="ParticleSystems.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

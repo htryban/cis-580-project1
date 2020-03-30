@@ -27,20 +27,18 @@ namespace MonoGameWindowsStarter
     /// </summary>
     public class Game1 : Game
     {
-        int progression = 0;
         int score = 0;
         int eat = 0;
         int displayScore = 0;
-        string te = "";
         bool scored = false;
         bool died = false;
-        bool safe = false;
         bool _meteorsStarted = false;
         bool _draw = true;
-        bool _paused = true;
         bool _started = false;
+        bool moving = false;
         float rotation = 0;
-        float _timer = 15;
+        float _timer = 21;
+        bool _sound;
         SpriteEffects effect = SpriteEffects.None;
 
         private SpriteFont _font;
@@ -49,7 +47,11 @@ namespace MonoGameWindowsStarter
         Song backingtrack;
         List<SoundEffect> soundEffects;
         Player player;
+        ParticleSystems shipParticleSystem;
+        ParticleSystems explosionParticleSystem;
+        ParticleSystems fireParticalSystem;
 
+        Texture2D particleTexture;
         Random rand = new Random();
         Rectangle shipRect;
         Texture2D ship;
@@ -60,6 +62,7 @@ namespace MonoGameWindowsStarter
         Meteor m1;
         shipMovement movement = shipMovement.Idle;
 
+        private List<ParticleSystems> _enemyParticles;
         private List<Sprite> _sprite;
         private List<Sprite> _enemySprite;
         Vector2 direction = new Vector2(0, -1);
@@ -70,9 +73,7 @@ namespace MonoGameWindowsStarter
             Content.RootDirectory = "Content";
             soundEffects = new List<SoundEffect>();
             player = new Player(this);
-            m1 = new Meteor { meteorRect = new Rectangle(0,0, 50,50), Progression = 1.0, Width = 50, Height = 50 };
-            //flyweight = new Flyweight(new Meteor { meteorRect = meteorRect1, Progression = 1.0, Width = 50, Height = 50 });
-            
+            m1 = new Meteor { meteorRect = new Rectangle(0,0, 50,50), Progression = 1.0, Width = 50, Height = 50 };            
         }
 
         /// <summary>
@@ -110,7 +111,7 @@ namespace MonoGameWindowsStarter
             bull = Content.Load<Texture2D>("Bullet");
                 
             this.backingtrack = Content.Load<Song>("Hotshot");
-            //MediaPlayer.Play(backingtrack);
+             MediaPlayer.Play(backingtrack);
             MediaPlayer.IsRepeating = true;
             MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
             soundEffects.Add(Content.Load<SoundEffect>("boom"));
@@ -125,6 +126,132 @@ namespace MonoGameWindowsStarter
                     Bullet = new Bullet(Content.Load<Texture2D>("Bullet")),
                 },
             };
+
+
+
+            //particles creation
+            particleTexture = Content.Load<Texture2D>("particle");
+            shipParticleSystem = new ParticleSystems(graphics.GraphicsDevice, 1000, particleTexture);
+            explosionParticleSystem = new ParticleSystems(graphics.GraphicsDevice, 1500, particleTexture);
+            fireParticalSystem = new ParticleSystems(graphics.GraphicsDevice, 1000, particleTexture);
+
+            // Set the SpawnParticle method
+            shipParticleSystem.SpawnParticle = (ref Particle particle) =>
+            {
+                //MouseState mouse = Mouse.GetState();
+                particle.Position = new Vector2(shipRect.X - 9, shipRect.Y - 9);
+                particle.Velocity = new Vector2(
+                    MathHelper.Lerp(-50, 50, (float)rand.NextDouble()), // X between -50 and 50
+                    MathHelper.Lerp(0, 100, (float)rand.NextDouble()) // Y between 0 and 100
+                    );
+                particle.Acceleration = 0.1f * new Vector2(0, (float)-rand.NextDouble());
+                if (moving) particle.Color = Color.Yellow;
+                else particle.Color = Color.Black;
+                particle.Scale = 1f;
+                particle.Life = 1.0f;
+            };
+
+            // Set the UpdateParticle method
+            shipParticleSystem.UpdateParticle = (float deltaT, ref Particle particle) =>
+            {
+                particle.Velocity += deltaT * particle.Acceleration;
+                particle.Position += deltaT * particle.Velocity;
+                particle.Scale -= deltaT;
+                particle.Life -= deltaT;
+            };
+            /**********************************************************************/
+            // making the red particles
+            explosionParticleSystem.SpawnParticle = (ref Particle particle) =>
+            { 
+                particle.Position = new Vector2(shipRect.X - 17, shipRect.Y - 13);
+                particle.Velocity = new Vector2(
+                    MathHelper.Lerp(-50, 50, (float)rand.NextDouble()), // X between -50 and 50
+                    MathHelper.Lerp(-100, 100, (float)rand.NextDouble()) // Y between 0 and 100
+                    );
+                particle.Acceleration = 0.04f * new Vector2(0, (float)-rand.NextDouble());
+                if (moving) particle.Color = Color.Red;
+                else particle.Color = Color.Black;
+                particle.Scale = 2f;
+                particle.Life = 2.0f;
+            };
+
+            // Set the UpdateParticle method
+            explosionParticleSystem.UpdateParticle = (float deltaT, ref Particle particle) =>
+            {
+                particle.Velocity += deltaT * particle.Acceleration;
+                particle.Position += deltaT * particle.Velocity;
+                particle.Scale -= deltaT;
+                particle.Life -= deltaT;
+            };
+            /*************************************************************************/
+            // fire near timer
+            fireParticalSystem.SpawnParticle = (ref Particle particle) =>
+            {
+                particle.Position = new Vector2(1680, 70);
+                particle.Velocity = new Vector2(
+                    MathHelper.Lerp(-100, 100, (float)rand.NextDouble()),
+                    MathHelper.Lerp(-100, 0, (float)rand.NextDouble())
+                    );
+                particle.Acceleration = 0.02f * new Vector2(0, (float)-rand.NextDouble());
+                if (_timer > 15) particle.Color = Color.LightSteelBlue;
+                else if (_timer > 10) particle.Color = Color.Yellow;
+                else if (_timer > 5) particle.Color = Color.Orange;
+                else particle.Color = Color.Red;
+                particle.Scale = 1f;
+                particle.Life = 2.0f;
+            };
+
+            // Set the UpdateParticle method
+            fireParticalSystem.UpdateParticle = (float deltaT, ref Particle particle) =>
+            {
+                particle.Velocity += deltaT * particle.Acceleration;
+                particle.Position += deltaT * particle.Velocity;
+                particle.Scale -= deltaT;
+                particle.Life -= deltaT;
+            };
+            /*************************************************************************/
+            if (_enemySprite != null)
+            {
+                foreach (var enemy in _enemySprite)
+                {
+                    _enemyParticles.Add(new ParticleSystems(graphics.GraphicsDevice, 1000, particleTexture));
+                }
+                if (_enemyParticles != null)
+                {
+                    for (int i = 0; i < _enemyParticles.Count; i++)
+                    {
+                        _enemyParticles[i].SpawnParticle = (ref Particle particle) =>
+                        {
+                            particle.Position = new Vector2(100,100);
+                            particle.Velocity = new Vector2(
+                                MathHelper.Lerp(-50, 50, (float)rand.NextDouble()), // X between -50 and 50
+                                MathHelper.Lerp(0, 100, (float)rand.NextDouble()) // Y between 0 and 100
+                                );
+                            particle.Acceleration = 0.1f * new Vector2(0, (float)-rand.NextDouble());
+                            particle.Color = Color.Green;
+                            particle.Scale = 1f;
+                            particle.Life = 1.0f;
+                        };
+
+                        // Set the UpdateParticle method
+                        _enemyParticles[i].UpdateParticle = (float deltaT, ref Particle particle) =>
+                        {
+                            particle.Velocity += deltaT * particle.Acceleration;
+                            particle.Position += deltaT * particle.Velocity;
+                            particle.Scale -= deltaT;
+                            particle.Life -= deltaT;
+                        };
+                        _enemyParticles[i].SpawnPerFrame = 2;
+                    }
+                }
+            }
+
+            if (_timer > 15) fireParticalSystem.SpawnPerFrame = 1;
+            else if (_timer > 10) fireParticalSystem.SpawnPerFrame = 3;
+            else if (_timer > 5) fireParticalSystem.SpawnPerFrame = 4;
+            else fireParticalSystem.SpawnPerFrame = 6;
+            explosionParticleSystem.SpawnPerFrame = 2;
+            shipParticleSystem.SpawnPerFrame = 4;
         }
 
         void MediaPlayer_MediaStateChanged(object sender, System.EventArgs e)
@@ -163,21 +290,22 @@ namespace MonoGameWindowsStarter
             {
                 _started = true;
                 _draw = true;
+                _sound = false;
                 if(died)
                 {
+
                     shipRect.X = 900;
                     shipRect.Y = 900;
                     rotation = 0;
                     direction = new Vector2(0, -1);
-                    _timer = 15;
+                    _timer = 21;
                 }
-
                 //eats the first space to prevent firing on start
                 eat += 1;
             }
             
             if(_started){
-                if (newKeyboardState.IsKeyDown(Keys.R) && !_meteorsStarted && prevKey.IsKeyDown(Keys.R))
+                if (_timer % 3 == 0)//(newKeyboardState.IsKeyDown(Keys.R) && !_meteorsStarted && prevKey.IsKeyDown(Keys.R))
                 {
                     _meteorsStarted = true;
                     _enemySprite = new List<Sprite>()
@@ -185,7 +313,7 @@ namespace MonoGameWindowsStarter
                         new Enemies(rock, this)
                         {
                             Position = new Vector2(100, 100),
-                            Enemy = new Enemy(Content.Load<Texture2D>("Meteor"))
+                            Enemy = new Enemy(Content.Load<Texture2D>("rock no trail"))
                         }
                         
                     };
@@ -213,49 +341,70 @@ namespace MonoGameWindowsStarter
                         shipRect.X -= 7;
                         rotation = (float)-.5;
                         direction = new Vector2(-1, -1);
+                        moving = true;
                         break;
                     case shipMovement.UpRight:
                         shipRect.Y -= 7;
                         shipRect.X += 7;
                         rotation = (float).5;
                         direction = new Vector2(1, -1);
+                        moving = true;
                         break;
                     case shipMovement.DownRight:
                         shipRect.Y += 7;
                         shipRect.X += 7;
                         rotation = (float)2.2;
                         direction = new Vector2(1, 1);
+                        moving = true;
                         break;
                     case shipMovement.DownLeft:
                         shipRect.Y += 7;
                         shipRect.X -= 7;
                         rotation = (float)-2.2;
                         direction = new Vector2(-1, 1);
+                        moving = true;
                         break;
                     case shipMovement.Up:
                         shipRect.Y -= 10;
                         rotation = 0;
                         effect = SpriteEffects.None;
                         direction = new Vector2(0, -1);
+                        moving = true;
                         break;
                     case shipMovement.Down:
                         shipRect.Y += 10;
                         rotation = (float)3.125;
                         direction = new Vector2(0, 1);
+                        moving = true;
                         break;
                     case shipMovement.Left:
                         shipRect.X -= 10;
                         rotation = (float)-1.6;
                         direction = new Vector2(-1, 0);
+                        moving = true;
                         break;
                     case shipMovement.Right:
                         shipRect.X += 10;
                         rotation = (float)1.6;
                         direction = new Vector2(1,0);
+                        moving = true;
                         break;
                     case shipMovement.Idle:
+                        moving = false;
+                        break;
                     default: break;
                 }
+
+                if (_enemyParticles != null)
+                {
+                    foreach (var enemy in _enemyParticles)
+                    {
+                        enemy.Update(gameTime);
+                    }
+                }
+                explosionParticleSystem.Update(gameTime);
+                shipParticleSystem.Update(gameTime);
+                fireParticalSystem.Update(gameTime);
             }
             
             //keep ship on screen
@@ -277,23 +426,21 @@ namespace MonoGameWindowsStarter
                     sprite.Update(gameTime, _enemySprite, direction, 5);
             }
 
-            if (_timer <= 0) 
+            if (_timer <= 0 && !_sound)
             {
-                for (int i = 1; i < _enemySprite.Count; i++) _enemySprite.RemoveAt(i);
+                if(_enemySprite != null){ for (int i = 1; i < _enemySprite.Count; i++) _enemySprite.RemoveAt(i); }
                 died = true;
                 _draw = false;
                 _started = false;
                 var instance = soundEffects[0].CreateInstance();
                 instance.Play();
+                _sound = true;
                 eat = 0;
-                //shipRect.X = 900;
-                //shipRect.Y = 900;
                 displayScore = score;
                 score = 0;
             }
 
             if (_enemySprite != null) {
-                safe = false;
                 for (int e = 1; e < _enemySprite.Count; e++)
                 {
                     scored = false;
@@ -313,6 +460,7 @@ namespace MonoGameWindowsStarter
                             {
                                 if (!scored)
                                 {
+                                    _timer++;
                                     scored = true;
                                     score++;
                                     _enemySprite.RemoveAt(e);
@@ -336,8 +484,6 @@ namespace MonoGameWindowsStarter
                             var instance = soundEffects[0].CreateInstance();
                             instance.Play();
                             eat = 0;
-                            //shipRect.X = 900;
-                            //shipRect.Y = 900;
                             displayScore = score;
                             score = 0;
                             break;
@@ -348,7 +494,6 @@ namespace MonoGameWindowsStarter
                         continue;
                     }
                 }
-                safe = true;
             }
 
             player.Update(gameTime);
@@ -392,24 +537,39 @@ namespace MonoGameWindowsStarter
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-            if(_draw) spriteBatch.Draw(ship, shipRect, null, Color.White, rotation, new Vector2(ship.Width / 2f, ship.Height / 2f), effect, 0);
-            
+            if (_draw)
+            {
+                spriteBatch.Draw(ship, shipRect, null, Color.White, rotation, new Vector2(ship.Width / 2f, ship.Height / 2f), effect, 0);
+                shipParticleSystem.Draw();
+                explosionParticleSystem.Draw();
+            }
             for (int i = 1; i < _sprite.Count; i++)
                 _sprite[i].Draw(spriteBatch);
             if (_enemySprite != null)
             {
                 for (int i = 1; i < _enemySprite.Count; i++)
                     _enemySprite[i].Draw(spriteBatch);
+                if (_enemyParticles != null)
+                {
+                    foreach (var enemy in _enemyParticles)
+                    {
+                        enemy.Draw();
+                    }
+                }
             }
-                        
-            if(_started)spriteBatch.DrawString(_font, "Score: " + score + "\nPress 'R' to spawn the next wave of enemies ", new Vector2(0,0), Color.White);
-            if (_started) spriteBatch.DrawString(_font, "Time Left: " + _timer, new Vector2(1600, 0), Color.White);
+            if (_started)
+            {
+                fireParticalSystem.Draw();
+                spriteBatch.DrawString(_font, "Time Left: " + _timer, new Vector2(1600, 0), Color.White);
+            }
             if (!_started && !died) spriteBatch.DrawString(_font,
-                "                       Use the Arrows or WASD to Move\n                        Press Space to Shoot / Continue\n                        Destroy as many Meteors you can in the given time",
+                "                       Use the Arrows or WASD to Move\n                       Press Space to Shoot / Continue\n                       Shoot the Meteors as they appear",
                 new Vector2(600,650), Color.White);
             if(died && !_started){ spriteBatch.DrawString(_font, 
                 "                       You Destroyed " + displayScore + " Meteors\n                       Press Space to play again", new Vector2(600,650), Color.White);
+                
                 player.Draw(spriteBatch);
+
             }
             spriteBatch.End();
             base.Draw(gameTime);
